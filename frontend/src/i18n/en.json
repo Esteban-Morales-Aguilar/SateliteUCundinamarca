@@ -359,7 +359,8 @@
     "economicVsPremium": "Economic vs premium profile",
     "economic": "Economic",
     "variesByProvider": "Varies by provider",
-    "confirmPrices": "Confirm with current quotes before purchasing"
+    "confirmPrices": "Confirm with current quotes before purchasing",
+    "total": "Total"
   },
   "wiring": {
     "blockDiagram": "Block diagram and connection tables of guide",

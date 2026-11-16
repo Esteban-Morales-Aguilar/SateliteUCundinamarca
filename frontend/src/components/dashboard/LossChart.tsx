@@ -26,7 +26,7 @@ export function LossChart({ link, distanceKm }: { link: LinkResult; distanceKm: 
         <Line data={data} options={{
           responsive: true, maintainAspectRatio: false, animation: false,
           plugins: { legend: { display: true, labels: { color: c.text, usePointStyle: true } } },
-          scales: { x: { title: { display: true, text: t('dashboard.distance') + ' (km)', color: c.text }, ticks: { color: c.text, maxTicksLimit: 5, maxRotation: 0 }, grid: { display: false } }, y: { title: { display: true, text: t('dashboard.power') + ' (dBm)', color: c.text }, ticks: { color: c.text }, grid: { color: c.grid } },
+          scales: { x: { title: { display: true, text: t('dashboard.distance') + ' (km)', color: c.text }, ticks: { color: c.text, maxTicksLimit: 5, maxRotation: 0 }, grid: { display: false } }, y: { title: { display: true, text: t('dashboard.power') + ' (dBm)', color: c.text }, ticks: { color: c.text }, grid: { color: c.grid } } },
         }} />
       </div>
     </figure>

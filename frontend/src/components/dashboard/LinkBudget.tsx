@@ -39,8 +39,8 @@ export function LinkBudget({ link, s, distanceKm }: { link: LinkResult; s: SimSt
 
       <p className="mt-4 rounded-lg border-l-4 border-brand-blue bg-sky-50 p-3 text-sm text-slate-700 dark:border-sky-500 dark:bg-space-900 dark:text-slate-300">
         {link.message}{' '}
-        {link.viable && margin < 6 && '{t('dashboard.fragileMargin')} ~6 dB es frágil: el clima o un cambio de orientación de la antena podrían cortar el enlace.'}
-        {!link.viable && s.sf < 12 && ` {t('dashboard.tryHigherSf')} subir el SF (a mayor SF, mayor sensibilidad pero menor tasa de datos).`}
+        {link.viable && margin < 6 && t('dashboard.fragileMargin')}
+        {!link.viable && s.sf < 12 && t('dashboard.tryHigherSf')}
       </p>
     </section>
   );

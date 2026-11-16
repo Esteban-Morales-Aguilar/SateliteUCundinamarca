@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-export function Slider({ label, value, unit, min, max, onChange, hint }: { label: string; value: number; unit: string; min: number; max: number; onChange: (v: number) => void; hint?: string }) {
+export function Slider({ label, value, unit, min, max, step, onChange, hint }: { label: string; value: number; unit: string; min: number; max: number; step?: number; onChange: (v: number) => void; hint?: string }) {
   const { t } = useTranslation();
   return (
     <div className="space-y-1">
@@ -9,6 +9,7 @@ export function Slider({ label, value, unit, min, max, onChange, hint }: { label
         type="range"
         min={min}
         max={max}
+        step={step}
         value={value}
         onChange={(e) => onChange(e.target.valueAsNumber)}
         className="w-full accent-brand-blue dark accent-brand-blue"
@@ -18,7 +19,7 @@ export function Slider({ label, value, unit, min, max, onChange, hint }: { label
   );
 }
 
-export function Segmented({ label, value, options, onChange, format }: { label: string; value: string; options: string[]; onChange: (v: string) => void; format?: (v: string) => string }) {
+export function Segmented<T extends string | number>({ label, value, options, onChange, format }: { label: string; value: T; options: readonly T[]; onChange: (v: T) => void; format?: (v: T) => string }) {
   const { t } = useTranslation();
   return (
     <div className="space-y-1">
@@ -26,12 +27,12 @@ export function Segmented({ label, value, options, onChange, format }: { label: 
       <div className="grid grid-cols-2 grid-cols-sm-2 gap-1">
         {options.map((opt) => (
           <button
-            key={opt}
+            key={String(opt)}
             type="button"
             onClick={() => onChange(opt)}
             className={`px-3 py-1 rounded text-sm ${value === opt ? 'bg-brand-blue text-white' : 'text-slate-600 dark:text-slate-400'}`}
           >
-            {t(opt)}
+            {t(String(opt))}
           </button>
         ))}
       </div>
