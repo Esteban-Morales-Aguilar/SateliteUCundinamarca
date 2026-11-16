@@ -1,0 +1,6 @@
+{"title":"SpaceNet - Telemetría de misión","uid":"spacenet-telemetry","schemaVersion":39,"version":1,"refresh":"5s","time":{"from":"now-15m","to":"now"},
+"panels":[
+{"id":1,"type":"timeseries","title":"Altitud (m)","gridPos":{"x":0,"y":0,"w":12,"h":8},"targets":[{"expr":"telemetry_altitude_meters","refId":"A"}]},
+{"id":2,"type":"timeseries","title":"RSSI / SNR","gridPos":{"x":12,"y":0,"w":12,"h":8},"targets":[{"expr":"telemetry_rssi_dbm","refId":"A"},{"expr":"telemetry_snr_db","refId":"B"}]},
+{"id":3,"type":"stat","title":"Paquetes recibidos","gridPos":{"x":0,"y":8,"w":6,"h":5},"targets":[{"expr":"telemetry_packets_total","refId":"A"}]}
+]}

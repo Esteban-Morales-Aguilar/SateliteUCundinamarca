@@ -1,0 +1,3 @@
+apiVersion: 1
+providers:
+  - { name: spacenet, folder: SpaceNet, type: file, options: { path: /etc/grafana/provisioning/dashboards } }

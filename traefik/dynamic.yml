@@ -1,0 +1,18 @@
+http:
+  middlewares:
+    ratelimit:
+      rateLimit: { average: 100, period: 1m, burst: 20 }
+    compress:
+      compress: {}
+    secure-headers:
+      headers:
+        frameDeny: true
+        contentTypeNosniff: true
+        browserXssFilter: true
+        stsSeconds: 31536000
+        stsIncludeSubdomains: true
+        referrerPolicy: strict-origin-when-cross-origin
+        contentSecurityPolicy: "default-src 'self'; img-src 'self' data: blob: https://*.tile.openstreetmap.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self' ws: wss:; media-src 'self' blob:; frame-ancestors 'none'"
+tls:
+  options:
+    default: { minVersion: VersionTLS12 }

@@ -1,0 +1,258 @@
+name: spacenet-lab
+x-restart:
+  restart: unless-stopped
+services:
+  auth-service:
+    restart: unless-stopped
+    build: ./services/auth-service
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      JWT_SECRET: ${JWT_SECRET}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+    - spacenet-network
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.auth.rule=PathPrefix(`/api/v1/auth`) || PathPrefix(`/api/v1/users`)
+    - traefik.http.routers.auth.middlewares=ratelimit@file,secure-headers@file
+    - traefik.http.services.auth.loadbalancer.server.port=3001
+    ports:
+    - 127.0.0.1:13001:3001
+  content-service:
+    restart: unless-stopped
+    build: ./services/content-service
+    environment:
+      NODE_ENV: production
+      PORT: 3002
+      MONGODB_URI: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/${MONGO_DB}?authSource=admin
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      JWT_SECRET: ${JWT_SECRET}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+    - spacenet-network
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.content.rule=PathPrefix(`/api/v1/content`)
+    - traefik.http.routers.content.middlewares=ratelimit@file,secure-headers@file
+    - traefik.http.services.content.loadbalancer.server.port=3002
+    ports:
+    - 127.0.0.1:13002:3002
+  telemetry-service:
+    restart: unless-stopped
+    build: ./services/telemetry-service
+    environment:
+      DATABASE_URL: postgresql://${TIMESCALE_USER}:${TIMESCALE_PASSWORD}@timescaledb:5432/${TIMESCALE_DB}
+      RABBITMQ_URL: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672
+      TELEMETRY_API_KEY: ${TELEMETRY_API_KEY}
+      TELEMETRY_DEMO: ${TELEMETRY_DEMO}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+    - spacenet-network
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.telemetry.rule=PathPrefix(`/api/v1/telemetry`) || PathPrefix(`/api/v1/ws`)
+    - traefik.http.routers.telemetry.middlewares=secure-headers@file
+    - traefik.http.services.telemetry.loadbalancer.server.port=3003
+    ports:
+    - 127.0.0.1:13003:3003
+  simulation-service:
+    restart: unless-stopped
+    build: ./services/simulation-service
+    environment:
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      CORS_ORIGIN: ${CORS_ORIGIN}
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+    - spacenet-network
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.simulation.rule=PathPrefix(`/api/v1/simulation`)
+    - traefik.http.routers.simulation.middlewares=ratelimit@file,secure-headers@file
+    - traefik.http.services.simulation.loadbalancer.server.port=3004
+    ports:
+    - 127.0.0.1:13004:3004
+  media-service:
+    restart: unless-stopped
+    build: ./services/media-service
+    environment:
+      PORT: 3005
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      minio:
+        condition: service_started
+    networks:
+    - spacenet-network
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.media.rule=PathPrefix(`/api/v1/media`)
+    - traefik.http.routers.media.middlewares=secure-headers@file
+    - traefik.http.services.media.loadbalancer.server.port=3005
+    ports:
+    - 127.0.0.1:13005:3005
+  frontend:
+    restart: unless-stopped
+    build: ./frontend
+    networks:
+    - spacenet-network
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.frontend.rule=PathPrefix(`/`)
+    - traefik.http.routers.frontend.priority=1
+    - traefik.http.routers.frontend.middlewares=secure-headers@file,compress@file
+    - traefik.http.services.frontend.loadbalancer.server.port=80
+    ports:
+    - 127.0.0.1:18082:80
+  postgres:
+    restart: unless-stopped
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+    - ./infrastructure/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+    - spacenet-network
+  mongo:
+    restart: unless-stopped
+    image: mongo:7
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB}
+    volumes:
+    - mongo_data:/data/db
+    - ./infrastructure/mongodb/init.js:/docker-entrypoint-initdb.d/init.js:ro
+    healthcheck:
+      test:
+      - CMD
+      - mongosh
+      - --quiet
+      - --eval
+      - db.adminCommand('ping').ok
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+    - spacenet-network
+  timescaledb:
+    restart: unless-stopped
+    image: timescale/timescaledb:latest-pg16
+    environment:
+      POSTGRES_USER: ${TIMESCALE_USER}
+      POSTGRES_PASSWORD: ${TIMESCALE_PASSWORD}
+      POSTGRES_DB: ${TIMESCALE_DB}
+    volumes:
+    - timescale_data:/var/lib/postgresql/data
+    - ./infrastructure/timescaledb/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready -U ${TIMESCALE_USER} -d ${TIMESCALE_DB}
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+    - spacenet-network
+  redis:
+    restart: unless-stopped
+    image: redis:7-alpine
+    command:
+    - redis-server
+    - --requirepass
+    - ${REDIS_PASSWORD}
+    - --appendonly
+    - 'yes'
+    - --maxmemory
+    - 256mb
+    - --maxmemory-policy
+    - allkeys-lru
+    volumes:
+    - redis_data:/data
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - redis-cli -a $$REDIS_PASSWORD ping | grep PONG
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    networks:
+    - spacenet-network
+  rabbitmq:
+    restart: unless-stopped
+    image: rabbitmq:3-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    volumes:
+    - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test:
+      - CMD
+      - rabbitmq-diagnostics
+      - -q
+      - ping
+      interval: 15s
+      timeout: 10s
+      retries: 10
+    networks:
+    - spacenet-network
+  minio:
+    restart: unless-stopped
+    image: docker.io/bitnamilegacy/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
+      MINIO_DEFAULT_BUCKETS: spacenet
+    volumes:
+    - minio_data:/data
+    networks:
+    - spacenet-network
+    user: 0:0
+volumes:
+  postgres_data: null
+  mongo_data: null
+  timescale_data: null
+  redis_data: null
+  rabbitmq_data: null
+  minio_data: null
+  prometheus_data: null
+  grafana_data: null
+  loki_data: null
+  traefik_certs: null
+networks:
+  spacenet-network:
+    driver: bridge

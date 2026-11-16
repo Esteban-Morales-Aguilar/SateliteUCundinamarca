@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+.env
+*.log
+__pycache__/
+.pytest_cache/
+.venv/
+.ruff_cache/
+.DS_Store
+*.zip
+docker-compose.deploy.yml.bak

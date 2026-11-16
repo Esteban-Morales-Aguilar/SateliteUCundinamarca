@@ -1,0 +1,264 @@
+name: spacenet-lab
+x-restart: &restart
+  restart: unless-stopped
+services:
+  traefik:
+    image: traefik:v3.0
+    <<: *restart
+    ports: ["80:80", "443:443", "8080:8080"]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./infrastructure/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./infrastructure/traefik/dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - traefik_certs:/letsencrypt
+    networks: [spacenet-network]
+
+  auth-service:
+    build: ./services/auth-service
+    <<: *restart
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      JWT_SECRET: ${JWT_SECRET}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [spacenet-network]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auth.rule=PathPrefix(`/api/v1/auth`) || PathPrefix(`/api/v1/users`)"
+      - "traefik.http.routers.auth.middlewares=ratelimit@file,secure-headers@file"
+      - "traefik.http.services.auth.loadbalancer.server.port=3001"
+
+  content-service:
+    build: ./services/content-service
+    <<: *restart
+    environment:
+      NODE_ENV: production
+      PORT: 3002
+      MONGODB_URI: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/${MONGO_DB}?authSource=admin
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      JWT_SECRET: ${JWT_SECRET}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+    depends_on:
+      mongo: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    networks: [spacenet-network]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.content.rule=PathPrefix(`/api/v1/content`)"
+      - "traefik.http.routers.content.middlewares=ratelimit@file,secure-headers@file"
+      - "traefik.http.services.content.loadbalancer.server.port=3002"
+
+  telemetry-service:
+    build: ./services/telemetry-service
+    <<: *restart
+    environment:
+      DATABASE_URL: postgresql://${TIMESCALE_USER}:${TIMESCALE_PASSWORD}@timescaledb:5432/${TIMESCALE_DB}
+      RABBITMQ_URL: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672
+      TELEMETRY_API_KEY: ${TELEMETRY_API_KEY}
+      TELEMETRY_DEMO: ${TELEMETRY_DEMO}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+    depends_on:
+      timescaledb: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+    networks: [spacenet-network]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.telemetry.rule=PathPrefix(`/api/v1/telemetry`) || PathPrefix(`/api/v1/ws`)"
+      - "traefik.http.routers.telemetry.middlewares=secure-headers@file"
+      - "traefik.http.services.telemetry.loadbalancer.server.port=3003"
+
+  simulation-service:
+    build: ./services/simulation-service
+    <<: *restart
+    environment:
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      CORS_ORIGIN: ${CORS_ORIGIN}
+    depends_on:
+      redis: { condition: service_healthy }
+    networks: [spacenet-network]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.simulation.rule=PathPrefix(`/api/v1/simulation`)"
+      - "traefik.http.routers.simulation.middlewares=ratelimit@file,secure-headers@file"
+      - "traefik.http.services.simulation.loadbalancer.server.port=3004"
+
+  media-service:
+    build: ./services/media-service
+    <<: *restart
+    environment:
+      PORT: 3005
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      minio: { condition: service_healthy }
+    networks: [spacenet-network]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.media.rule=PathPrefix(`/api/v1/media`)"
+      - "traefik.http.routers.media.middlewares=secure-headers@file"
+      - "traefik.http.services.media.loadbalancer.server.port=3005"
+
+  frontend:
+    build: ./frontend
+    <<: *restart
+    depends_on: [traefik]
+    networks: [spacenet-network]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.frontend.priority=1"
+      - "traefik.http.routers.frontend.middlewares=secure-headers@file,compress@file"
+      - "traefik.http.services.frontend.loadbalancer.server.port=80"
+
+  postgres:
+    image: postgres:16-alpine
+    <<: *restart
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [spacenet-network]
+
+  mongo:
+    image: mongo:7
+    <<: *restart
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB}
+    volumes:
+      - mongo_data:/data/db
+      - ./infrastructure/mongodb/init.js:/docker-entrypoint-initdb.d/init.js:ro
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [spacenet-network]
+
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    <<: *restart
+    environment:
+      POSTGRES_USER: ${TIMESCALE_USER}
+      POSTGRES_PASSWORD: ${TIMESCALE_PASSWORD}
+      POSTGRES_DB: ${TIMESCALE_DB}
+    volumes:
+      - timescale_data:/var/lib/postgresql/data
+      - ./infrastructure/timescaledb/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${TIMESCALE_USER} -d ${TIMESCALE_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [spacenet-network]
+
+  redis:
+    image: redis:7-alpine
+    <<: *restart
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}", "--appendonly", "yes"]
+    volumes: [redis_data:/data]
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a $$REDIS_PASSWORD ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    networks: [spacenet-network]
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    <<: *restart
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    volumes: [rabbitmq_data:/var/lib/rabbitmq]
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+    networks: [spacenet-network]
+
+  minio:
+    image: minio/minio:latest
+    <<: *restart
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
+    volumes: [minio_data:/data]
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [spacenet-network]
+
+  prometheus:
+    image: prom/prometheus:latest
+    <<: *restart
+    volumes:
+      - ./infrastructure/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./infrastructure/prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - prometheus_data:/prometheus
+    networks: [spacenet-network]
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    <<: *restart
+    volumes:
+      - ./infrastructure/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+    networks: [spacenet-network]
+
+  grafana:
+    image: grafana/grafana:latest
+    <<: *restart
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./infrastructure/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./infrastructure/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    ports: ["3000:3000"]
+    networks: [spacenet-network]
+
+  loki:
+    image: grafana/loki:latest
+    <<: *restart
+    command: -config.file=/etc/loki/loki-config.yml
+    volumes:
+      - ./infrastructure/loki/loki-config.yml:/etc/loki/loki-config.yml:ro
+      - loki_data:/loki
+    networks: [spacenet-network]
+
+volumes:
+  postgres_data:
+  mongo_data:
+  timescale_data:
+  redis_data:
+  rabbitmq_data:
+  minio_data:
+  prometheus_data:
+  grafana_data:
+  loki_data:
+  traefik_certs:
+networks:
+  spacenet-network:
+    driver: bridge

@@ -1,0 +1,5 @@
+route: { receiver: default, group_by: [alertname, job], group_wait: 30s, repeat_interval: 4h }
+receivers:
+  - name: default
+    # email_configs: [{ to: ops@example.com, from: alerts@example.com, smarthost: 'smtp.example.com:587' }]
+    # slack_configs: [{ api_url: 'https://hooks.slack.com/services/XXX', channel: '#alerts' }]

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESTRATOSAT-TELCO | Circuito electrónico</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#e8edf2;color:#263445;font-family:Arial,sans-serif}
+main{max-width:1450px;margin:24px auto;padding:0 18px}
+header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:16px}
+h1{font-size:25px;margin:0 0 5px}
+p{margin:0;color:#657386;font-size:13px}
+button{background:#087bb9;color:white;border:0;padding:12px 18px;border-radius:7px;font-weight:bold;cursor:pointer}
+.board{background:#f8fafc;border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;box-shadow:0 5px 18px #24364b18}
+svg{width:100%;height:auto;display:block}
+.board-bg{fill:#f8fafc}
+.gridline{stroke:#e8edf3;stroke-width:1}
+.device{fill:#273746;stroke:#111e2b;stroke-width:2}
+.device-light{fill:#d7e0e8;stroke:#738394;stroke-width:1.5}
+.chip{fill:#202a35;stroke:#111827;stroke-width:1.5}
+.white{fill:#f7fafc}
+.darktext{fill:#263445}
+.small{font-size:11px}
+.pin{fill:#d4a94c;stroke:#9b762d;stroke-width:.7}
+.wire{fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.label{font-size:12px;font-weight:bold;fill:#34465a}
+.legend{display:flex;flex-wrap:wrap;gap:15px;padding:15px 18px;background:#eef3f8;border-top:1px solid #cbd5e1}
+.legend span{font-size:12px;display:flex;align-items:center;gap:6px}
+.dot{width:15px;height:4px;border-radius:4px}
+.note{padding:14px 4px;line-height:1.6}
+@media(max-width:700px){header{align-items:flex-start;flex-direction:column}}
+@media print{
+ body{background:white}
+ main{max-width:none;margin:0;padding:0}
+ button{display:none}
+ .board{box-shadow:none}
+ @page{size:landscape;margin:8mm}
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+ <div>
+  <h1>4.2 Conexiones eléctricas — ESTRATOSAT-TELCO</h1>
+  <p>Diagrama electrónico de interconexión · Raspberry Pi 3 B+ · Arduino Uno R3 · Telemetría LoRa</p>
+ </div>
+ <button onclick="window.print()">Exportar a PDF</button>
+</header>
+
+<section class="board">
+<svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg">
+
+<defs>
+ <pattern id="holes" width="18" height="18" patternUnits="userSpaceOnUse">
+  <circle cx="9" cy="9" r="2.2" fill="#aebdca"/>
+ </pattern>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+  <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#263445" flood-opacity=".18"/>
+ </filter>
+</defs>
+
+<rect class="board-bg" width="1400" height="900"/>
+<g opacity=".55">
+ <path class="gridline" d="M0 100H1400 M0 200H1400 M0 300H1400 M0 400H1400 M0 500H1400 M0 600H1400 M0 700H1400 M0 800H1400"/>
+ <path class="gridline" d="M100 0V900 M200 0V900 M300 0V900 M400 0V900 M500 0V900 M600 0V900 M700 0V900 M800 0V900 M900 0V900 M1000 0V900 M1100 0V900 M1200 0V900 M1300 0V900"/>
+</g>
+
+<!-- RASPBERRY PI -->
+<g filter="url(#shadow)">
+ <rect x="420" y="120" width="470" height="250" rx="18" fill="#267a46" stroke="#14532d" stroke-width="3"/>
+ <text x="655" y="150" text-anchor="middle" class="white" font-size="20" font-weight="bold">RASPBERRY PI 3 MODEL B+</text>
+ <rect x="555" y="190" width="160" height="105" rx="7" class="chip"/>
+ <text x="635" y="235" text-anchor="middle" class="white" font-size="16">Broadcom</text>
+ <text x="635" y="257" text-anchor="middle" class="white small">BCM2837B0</text>
+ <rect x="440" y="175" width="65" height="45" rx="4" fill="#111827"/>
+ <text x="472" y="202" text-anchor="middle" class="white small">USB</text>
+ <rect x="805" y="175" width="60" height="45" rx="4" fill="#111827"/>
+ <text x="835" y="202" text-anchor="middle" class="white small">HDMI</text>
+ <rect x="440" y="300" width="65" height="45" rx="4" fill="#111827"/>
+ <text x="472" y="327" text-anchor="middle" class="white small">ETH</text>
+ <rect x="805" y="300" width="60" height="45" rx="4" fill="#111827"/>
+ <text x="835" y="327" text-anchor="middle" class="white small">USB</text>
+ <rect x="520" y="165" width="250" height="16" rx="3" fill="#1b2935"/>
+ <g fill="#d4a94c">
+  <circle cx="530" cy="173" r="3"/><circle cx="548" cy="173" r="3"/>
+  <circle cx="566" cy="173" r="3"/><circle cx="584" cy="173" r="3"/>
+  <circle cx="602" cy="173" r="3"/><circle cx="620" cy="173" r="3"/>
+  <circle cx="638" cy="173" r="3"/><circle cx="656" cy="173" r="3"/>
+  <circle cx="674" cy="173" r="3"/><circle cx="692" cy="173" r="3"/>
+  <circle cx="710" cy="173" r="3"/><circle cx="728" cy="173" r="3"/>
+  <circle cx="746" cy="173" r="3"/>
+ </g>
+ <text x="655" y="355" text-anchor="middle" class="white small">Kali Linux · Procesamiento y transmisión de telemetría</text>
+</g>
+
+<!-- RFM95W -->
+<g filter="url(#shadow)">
+ <rect x="80" y="150" width="235" height="170" rx="12" fill="#263746" stroke="#111827" stroke-width="2"/>
+ <rect x="120" y="190" width="150" height="75" rx="5" fill="#34495e" stroke="#90a4ae"/>
+ <text x="195" y="220" text-anchor="middle" class="white" font-size="16" font-weight="bold">RFM95W</text>
+ <text x="195" y="241" text-anchor="middle" class="white small">LoRa 915 MHz</text>
+ <path d="M195 190V165" stroke="#cbd5e1" stroke-width="4"/>
+ <circle cx="195" cy="163" r="5" fill="#d4a94c"/>
+ <text x="195" y="140" text-anchor="middle" class="label">ANTENA 915 MHz</text>
+ <g fill="#d4a94c">
+  <circle cx="100" cy="185" r="4"/><circle cx="100" cy="215" r="4"/>
+  <circle cx="100" cy="245" r="4"/><circle cx="100" cy="275" r="4"/>
+  <circle cx="295" cy="185" r="4"/><circle cx="295" cy="215" r="4"/>
+  <circle cx="295" cy="245" r="4"/><circle cx="295" cy="275" r="4"/>
+ </g>
+ <text x="195" y="300" text-anchor="middle" class="white small">SPI · CS · RESET · DIO0</text>
+</g>
+
+<!-- ARDUINO UNO -->
+<g filter="url(#shadow)">
+ <rect x="420" y="510" width="470" height="235" rx="18" fill="#087d9b" stroke="#07566b" stroke-width="3"/>
+ <text x="655" y="540" text-anchor="middle" class="white" font-size="20" font-weight="bold">ARDUINO UNO R3</text>
+ <rect x="560" y="570" width="170" height="115" rx="7" fill="#202a35" stroke="#111827"/>
+ <text x="645" y="620" text-anchor="middle" class="white" font-size="17">ATmega328P</text>
+ <text x="645" y="644" text-anchor="middle" class="white small">Microcontrolador</text>
+ <rect x="435" y="565" width="65" height="55" rx="5" fill="#d6e0e7" stroke="#607d8b"/>
+ <text x="468" y="597" text-anchor="middle" class="darktext small">USB</text>
+ <rect x="810" y="565" width="60" height="55" rx="5" fill="#263746"/>
+ <text x="840" y="597" text-anchor="middle" class="white small">DC IN</text>
+ <text x="655" y="720" text-anchor="middle" class="white small">Adquisición de datos de sensores y GPS</text>
+</g>
+
+<!-- BME280 -->
+<g filter="url(#shadow)">
+ <rect x="1050" y="100" width="230" height="115" rx="10" fill="#244b68" stroke="#6da7d3" stroke-width="2"/>
+ <rect x="1120" y="125" width="90" height="65" rx="5" fill="#182b3b"/>
+ <text x="1165" y="151" text-anchor="middle" class="white" font-weight="bold">BME280</text>
+ <text x="1165" y="170" text-anchor="middle" class="white small">I²C</text>
+ <text x="1165" y="202" text-anchor="middle" class="white small">Temperatura · Presión · Humedad</text>
+</g>
+
+<!-- DS18B20 -->
+<g filter="url(#shadow)">
+ <rect x="1050" y="300" width="230" height="105" rx="10" fill="#244b68" stroke="#6da7d3" stroke-width="2"/>
+ <path d="M1125 325H1200V345H1125Z" fill="#c5cbd2" stroke="#64748b"/>
+ <path d="M1200 335L1235 335" stroke="#c5cbd2" stroke-width="5"/>
+ <text x="1165" y="375" text-anchor="middle" class="white" font-weight="bold">DS18B20</text>
+ <text x="1165" y="392" text-anchor="middle" class="white small">Sensor digital · 1-Wire</text>
+</g>
+
+<!-- GPS -->
+<g filter="url(#shadow)">
+ <rect x="1050" y="500" width="230" height="115" rx="10" fill="#244b68" stroke="#6da7d3" stroke-width="2"/>
+ <rect x="1120" y="520" width="90" height="55" rx="5" fill="#1d354b"/>
+ <text x="1165" y="543" text-anchor="middle" class="white" font-weight="bold">NEO-6M</text>
+ <text x="1165" y="560" text-anchor="middle" class="white small">GPS</text>
+ <text x="1165" y="598" text-anchor="middle" class="white small">Posición · Altitud</text>
+</g>
+
+<!-- BATERÍA / REGULADOR -->
+<g filter="url(#shadow)">
+ <rect x="80" y="570" width="235" height="135" rx="12" fill="#4b5563" stroke="#9ca3af" stroke-width="2"/>
+ <rect x="115" y="605" width="75" height="55" rx="5" fill="#1f2937"/>
+ <rect x="190" y="620" width="8" height="25" fill="#d1d5db"/>
+ <text x="230" y="612" text-anchor="middle" class="white" font-weight="bold">BATERÍA</text>
+ <text x="230" y="635" text-anchor="middle" class="white small">Litio</text>
+ <text x="230" y="653" text-anchor="middle" class="white small">+ regulador</text>
+ <text x="197" y="685" text-anchor="middle" class="white small">Alimentación DC</text>
+</g>
+
+<!-- CABLES SPI: RPi a LoRa -->
+<g>
+ <path class="wire" stroke="#f59e0b" d="M315 185H365V185H420"/>
+ <path class="wire" stroke="#eab308" d="M315 215H380V215H420"/>
+ <path class="wire" stroke="#f97316" d="M315 245H390V245H420"/>
+ <path class="wire" stroke="#d97706" d="M315 275H400V275H420"/>
+ <text x="365" y="175" class="label">SPI0</text>
+ <text x="365" y="205" class="label">MOSI / MISO</text>
+ <text x="365" y="235" class="label">SCLK / CE0</text>
+ <text x="365" y="265" class="label">GPIO RESET</text>
+</g>
+
+<!-- USB Raspberry a Arduino -->
+<path class="wire" stroke="#2563eb" d="M655 370V435H468V510"/>
+<text x="540" y="425" class="label">USB · Serial 115200</text>
+
+<!-- I2C Arduino a BME280 -->
+<path class="wire" stroke="#9333ea" d="M890 555H970V155H1050"/>
+<text x="978" y="175" class="label">SDA / SCL</text>
+
+<!-- OneWire Arduino a DS18B20 -->
+<path class="wire" stroke="#16a34a" d="M890 620H1000V350H1050"/>
+<text x="1007" y="370" class="label">DATA</text>
+
+<!-- UART Arduino a GPS -->
+<path class="wire" stroke="#ea580c" d="M890 690H1020V555H1050"/>
+<text x="1027" y="575" class="label">TX / RX</text>
+
+<!-- Alimentación regulada -->
+<path class="wire" stroke="#dc2626" d="M315 620H350V780H655V745"/>
+<text x="390" y="770" class="label">Alimentación regulada</text>
+
+<!-- Etiquetas -->
+<text x="80" y="825" class="label">ESTRATOSAT-TELCO · DIAGRAMA DE INTERCONEXIÓN</text>
+<text x="80" y="850" class="small" fill="#64748b">Representación conceptual: verificar pinout, niveles lógicos y regulación antes del montaje físico.</text>
+
+</svg>
+
+<div class="legend">
+ <span><i class="dot" style="background:#f59e0b"></i>SPI</span>
+ <span><i class="dot" style="background:#2563eb"></i>USB / Serial</span>
+ <span><i class="dot" style="background:#9333ea"></i>I²C</span>
+ <span><i class="dot" style="background:#16a34a"></i>1-Wire</span>
+ <span><i class="dot" style="background:#ea580c"></i>UART</span>
+ <span><i class="dot" style="background:#dc2626"></i>Alimentación</span>
+</div>
+</section>
+
+<p class="note">
+<strong>Nota de montaje:</strong> la Raspberry Pi trabaja con GPIO de 3,3 V.
+El RFM95W requiere alimentación y señales compatibles con 3,3 V.
+El DS18B20 necesita resistencia pull-up de 4,7 kΩ entre DATA y 5 V.
+El GPS se conecta al Arduino por UART. Las conexiones de alimentación deben
+dimensionarse según el consumo de los módulos y la batería utilizada.
+Este dibujo es una representación de diseño, no una validación eléctrica.
+</p>
+</main>
+</body>
+</html>

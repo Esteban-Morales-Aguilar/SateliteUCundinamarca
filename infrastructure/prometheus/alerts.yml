@@ -1,0 +1,13 @@
+groups:
+  - name: spacenet
+    rules:
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels: { severity: critical }
+        annotations: { summary: "Servicio {{ $labels.job }} caído" }
+      - alert: HighErrorRate
+        expr: sum(rate(http_requests_total{status=~"5.."}[5m])) by (job) / sum(rate(http_requests_total[5m])) by (job) > 0.05
+        for: 5m
+        labels: { severity: warning }
+        annotations: { summary: "Más de 5% de errores 5xx en {{ $labels.job }}" }

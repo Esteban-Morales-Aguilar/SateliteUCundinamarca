@@ -1,0 +1,8 @@
+{"title":"SpaceNet - Salud de servicios","uid":"spacenet-health","schemaVersion":39,"version":1,"refresh":"10s","time":{"from":"now-1h","to":"now"},
+"panels":[
+{"id":1,"type":"stat","title":"Servicios arriba","gridPos":{"x":0,"y":0,"w":6,"h":6},"targets":[{"expr":"sum(up)","refId":"A"}]},
+{"id":2,"type":"timeseries","title":"Throughput (req/s)","gridPos":{"x":6,"y":0,"w":9,"h":8},"targets":[{"expr":"sum(rate(http_requests_total[1m])) by (job)","refId":"A"}]},
+{"id":3,"type":"timeseries","title":"Errores 5xx","gridPos":{"x":15,"y":0,"w":9,"h":8},"targets":[{"expr":"sum(rate(http_requests_total{status=~\"5..\"}[1m])) by (job)","refId":"A"}]},
+{"id":4,"type":"timeseries","title":"Latencia p95 (s)","gridPos":{"x":0,"y":8,"w":12,"h":8},"targets":[{"expr":"histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, job))","refId":"A"}]},
+{"id":5,"type":"timeseries","title":"CPU proceso (s/s)","gridPos":{"x":12,"y":8,"w":12,"h":8},"targets":[{"expr":"rate(process_cpu_seconds_total[1m])","refId":"A"}]}
+]}

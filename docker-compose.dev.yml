@@ -1,0 +1,14 @@
+# Publica los puertos de cada servicio para depurar y abrir Swagger/OpenAPI directamente:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+# Swagger NestJS:  http://localhost:3001/api/docs (auth) · :3002 (content) · :3005 (media)
+# Docs FastAPI:    http://localhost:3003/docs (telemetry) · :3004/docs (simulation)
+# RabbitMQ UI:     http://localhost:15672 · MinIO consola: http://localhost:9001
+services:
+  auth-service:       { ports: ["3001:3001"] }
+  content-service:    { ports: ["3002:3002"] }
+  telemetry-service:  { ports: ["3003:3003"] }
+  simulation-service: { ports: ["3004:3004"] }
+  media-service:      { ports: ["3005:3005"] }
+  rabbitmq:           { ports: ["15672:15672"] }
+  minio:              { ports: ["9000:9000", "9001:9001"] }
+  prometheus:         { ports: ["9090:9090"] }

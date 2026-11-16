@@ -1,0 +1,407 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "theory": "Marco teórico",
+    "dashboard": "Dashboard",
+    "guides": "Guías técnicas",
+    "video": "Video",
+    "credits": "Créditos",
+    "login": "Ingresar",
+    "logout": "Salir",
+    "menu": "Abrir menú",
+    "close": "Cerrar menú",
+    "skip": "Saltar al contenido"
+  },
+  "theme": {
+    "toDark": "Activar tema oscuro",
+    "toLight": "Activar tema claro"
+  },
+  "lang": {
+    "switch": "Cambiar idioma a inglés",
+    "short": "EN"
+  },
+  "common": {
+    "loading": "Cargando…",
+    "retry": "Reintentar",
+    "error": "No se pudo cargar el contenido",
+    "download": "Descargar",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "reset": "Restablecer"
+  },
+  "home": {
+    "kicker": "Objeto Digital de Conocimiento · Universidad de Cundinamarca",
+    "title": "Diseño, simulación y seguridad de redes inalámbricas para CubeSats y CanSat educativos",
+    "lead": "Explore a su ritmo cómo se comunica un satélite educativo de bajo costo: desde la teoría de LoRa hasta una misión de globo estratosférico transmitiendo en vivo.",
+    "cta": "Explorar el ODC",
+    "ctaDash": "Ver la misión en vivo",
+    "diagramLabel": "Perfil de la atmósfera con un globo de gran altitud y su enlace de radio a tierra",
+    "modulesTitle": "Cuatro formas de explorar",
+    "modulesLead": "Descubre a tu ritmo: cada módulo es una puerta al conocimiento. Empieza por donde tu curiosidad te lleve.",
+    "meditTitle": "Aprender explorando",
+    "meditLead": "Este ODC sigue el Modelo Educativo Digital Transmoderno (MEDIT): quien aprende gestiona su propio camino. No hay evaluaciones ni puntajes, solo contenido, simulación y práctica para construir y replicar.",
+    "liveTitle": "Misión ESTRATOSAT-TELCO",
+    "liveEmpty": "Esperando telemetría…",
+    "liveAlt": "Altitud",
+    "liveRssi": "RSSI",
+    "liveOpen": "Abrir el dashboard",
+    "modules": [
+      {
+        "to": "/marco-teorico",
+        "title": "Marco teórico",
+        "desc": "Satélites educativos, LoRa y LoRaWAN, efecto Doppler, redundancia y seguridad, con las referencias de la revisión sistemática."
+      },
+      {
+        "to": "/dashboard",
+        "title": "Dashboard",
+        "desc": "Una misión en vivo con mapa y telemetría, y un simulador para ver qué le pasa al enlace cuando cambia la potencia, el SF o la distancia."
+      },
+      {
+        "to": "/guias",
+        "title": "Guías técnicas",
+        "desc": "Componentes con precios en COP, conexiones, instalación, código para la Raspberry Pi y el protocolo de lanzamiento."
+      },
+      {
+        "to": "/video",
+        "title": "Video del despliegue",
+        "desc": "Lanzamiento, ascenso, operación y recuperación del satélite educativo ESTRATOSAT-TELCO."
+      }
+    ],
+    "principles": [
+      {
+        "t": "Quien aprende decide",
+        "d": "Navegación libre, sin secuencias obligatorias."
+      },
+      {
+        "t": "Varias dimensiones",
+        "d": "Teoría, visualización, simulación y guías conviven en un mismo lugar."
+      },
+      {
+        "t": "Aprender haciendo",
+        "d": "El ODC es el resultado tangible de la misión ESTRATOSAT-TELCO."
+      },
+      {
+        "t": "Más allá del aula",
+        "d": "Todo está en línea, disponible a cualquier hora."
+      },
+      {
+        "t": "Conexión con el territorio",
+        "d": "Las guías permiten que otras comunidades educativas lo repliquen."
+      },
+      {
+        "t": "Educación para la vida",
+        "d": "Competencias técnicas y ciudadanas: redes, seguridad y trabajo abierto."
+      }
+    ],
+    "principlesTitle": "Cómo se refleja el MEDIT aquí",
+    "ctaSimulated": "Ver la misión simulada"
+  },
+  "footer": {
+    "license": "Contenido bajo licencia Creative Commons BY-NC-SA 4.0",
+    "program": "Especialización en Infraestructura y Seguridad de Redes",
+    "rights": "Trabajo de grado · 2026"
+  },
+  "dashboard": {
+    "tabMission": "Misión simulada",
+    "tabSimulator": "Simulador de red",
+    "tabSimulated": "Misión simulada",
+    "tabLive": "Misión en vivo",
+    "seoDesc": "Telemetría de la misión ESTRATOSAT-TELCO simulada y simulador de red.",
+    "title": "Dashboard",
+    "lead": "Observe una misión simulada o calculada y experimente con los parámetros de la red.",
+    "missionName": "ESTRATOSAT-TELCO",
+    "missionDescription": "Misión educativa de globo de altitud",
+    "altitude": "Altitud",
+    "temperature": "Temperatura",
+    "pressure": "Presión",
+    "humidity": "Humedad",
+    "simulated": "Si no hay hardware transmitiendo, el sistema reproduce un vuelo simulado (ascenso a 30 km y descenso) para que pueda explorar el panel en cualquier momento.",
+    "weatherClear": "Despejado",
+    "weatherCloudy": "Nublado",
+    "weatherRain": "Lluvia",
+    "weatherStorm": "Tormenta",
+    "live": "En vivo",
+    "notConnected": "Sin conexión",
+    "piData": "Datos reales transmitidos por la Raspberry Pi 3+ vía VPN",
+    "cpuTemp": "Temperatura CPU",
+    "rssi": "RSSI WiFi",
+    "cpuUsage": "Uso de CPU",
+    "memoryUsage": "Uso de memoria",
+    "mission": "Misión",
+    "simulator": "Simulador",
+    "applyToSimulator": "Aplicar al simulador",
+    "autoOptimization": "Recomendación automática de SF y BW",
+    "balanceOfLink": "Balance de enlace",
+    "bandwidth": "Ancho de banda (kHz)",
+    "bitrate": "Tasa de datos",
+    "bw": "BW",
+    "calculating": "Calculando…",
+    "calculationError": "No se pudo calcular la recomendación.",
+    "connectionError": "No se pudo conectar con el servicio de simulación.",
+    "dataRate": "Tasa de datos",
+    "distance": "Distancia en línea recta",
+    "doppler": "Doppler",
+    "dopplerChartLabel": "Corrimiento Doppler durante un paso del satélite",
+    "dopplerDescription": "Un CubeSat que pasa sobre la estación desplaza la frecuencia recibida:",
+    "dopplerEffect": "Efecto Doppler en órbita LEO",
+    "dopplerShift": "Corrimiento Doppler",
+    "elevationAngle": "Elevación sobre el horizonte",
+    "elevationHint": "0° = recién aparece; 90° = justo encima",
+    "estimatedMaxRange": "Alcance máximo estimado",
+    "estimatedPdr": "PDR estimado",
+    "flightPath": "Ruta de vuelo",
+    "freeSpaceLoss": "Pérdida en espacio libre (FSPL)",
+    "frequency": "Frecuencia (MHz)",
+    "groundStation": "Estación terrena",
+    "horizontalDistance": "Distancia horizontal",
+    "khz": "kHz",
+    "linkMargin": "Margen de enlace",
+    "linkParameters": "Parámetros del enlace",
+    "linkQuality": "Calidad del enlace",
+    "lossChart": "Pérdida en el enlace",
+    "lossChartLabel": "Potencia en los últimos puntos",
+    "margin": "Margen",
+    "networkSimulator": "Simulador de red",
+    "operatingPoint": "Punto de operación",
+    "orbitalAltitude": "Altitud orbital",
+    "orbitalVelocity": "Velocidad orbital",
+    "otherLosses": "Otras pérdidas (cables, clima…)",
+    "pdr": "PDR",
+    "period": "Periodo",
+    "power": "Potencia",
+    "receivedPower": "Potencia recibida",
+    "receiverTolerance": "Tolerancia del receptor",
+    "recommendParameters": "Recomendar parámetros",
+    "reconnecting": "Reconectando…",
+    "reset": "Restablecer valores",
+    "rssiStatus": "Estado del RSSI",
+    "seekMaxDataRate": "Busca la mayor tasa de datos que conserve al menos 10 dB de margen con la potencia, ganancias y distancia actuales.",
+    "sensitivity": "Sensibilidad",
+    "sf": "SF",
+    "signalGood": "Señal buena",
+    "simulatorDescription": "Mueva los controles y observe cómo cambia el enlace entre el globo y la estación terrena. Los cálculos los hace el servicio de simulación con el modelo de Friis y la sensibilidad de LoRa.",
+    "snr": "SNR",
+    "spreadingFactor": "Spreading Factor (SF)",
+    "stepEvolution": "Evolución del paso (de horizonte a horizonte)",
+    "toleranceMinus": "− tolerancia",
+    "tolerancePlus": "+ tolerancia",
+    "transmissionPower": "Potencia de transmisión",
+    "weather": "Clima",
+    "coverage": "Cobertura",
+    "radioRange": "Alcance del radio",
+    "waitingForPi": "Esperando datos de la Raspberry Pi...",
+    "piNotTransmitting": "La Pi no está transmitiendo aún. Conecte la Pi por VPN y espere a que envíe telemetría.",
+    "noRealLaunch": "Aún no se ha realizado el lanzamiento real. Conecte los módulos LoRa y sensores para ver datos de vuelo.",
+    "autoOptimizationDesc": "Pide al servicio la combinación SF/BW de mayor tasa de datos que mantenga un margen objetivo.",
+    "fragileMargin": "Un margen menor de ~6 dB es frágil: el clima o un cambio de orientación de la antena podrían cortar el enlace.",
+    "friisEquation": "Balance de enlace paso a paso (ecuación de Friis)",
+    "highSf": "SF alto: más alcance, menos velocidad.",
+    "resultingDistance": "Distancia en línea recta resultante",
+    "stratosphereStarts": "La estratosfera comienza a ~12 km.",
+    "tryHigherSf": "Pruebe subir el SF (a mayor SF, mayor sensibilidad pero menor tasa de datos)."
+  },
+  "video": {
+    "title": "Video del despliegue",
+    "lead": "Vea cómo se vivió la misión de principio a fin.",
+    "sections": [
+      {
+        "t": "Lanzamiento",
+        "d": "Inflado del globo, verificación final de la carga útil y suelta con la telemetría ya activa."
+      },
+      {
+        "t": "Ascenso",
+        "d": "El globo atraviesa la troposfera y entra a la estratosfera mientras el enlace LoRa se mantiene."
+      },
+      {
+        "t": "Operación",
+        "d": "Cerca de los 30 km se registran altitud, presión, temperatura y calidad del enlace."
+      },
+      {
+        "t": "Recuperación",
+        "d": "Descenso con paracaídas y localización de la carga útil con la última posición recibida."
+      }
+    ],
+    "notLoaded": "El video del despliegue aún no ha sido cargado.",
+    "uploadHint": "Súbalo en el panel de abajo."
+  },
+  "credits": {
+    "title": "Créditos",
+    "authors": "Autores",
+    "teacher": "Docente",
+    "program": "Programa",
+    "university": "Universidad",
+    "ctiGroup": "Grupo de CTI",
+    "year": "Año",
+    "license": "Licencia",
+    "licenseText": "Este objeto digital de conocimiento se distribuye bajo Creative Commons BY-NC-SA 4.0: puede copiarlo, adaptarlo y compartirlo citando a los autores, sin fines comerciales y bajo la misma licencia.",
+    "satellites": "Satélites educativos"
+  },
+  "guides": {
+    "title": "Guías técnicas",
+    "lead": "Todo lo necesario para replicar el nodo de la misión, desde la lista de compras hasta la recuperación del globo.",
+    "sections": {
+      "components": "Selección de componentes",
+      "wiring": "Conexiones eléctricas",
+      "software": "Instalación de software",
+      "programming": "Programación de la Raspberry Pi y Arduino Uno",
+      "launch": "Protocolo de lanzamiento y recuperación"
+    }
+  },
+  "login": {
+    "email": "Correo",
+    "password": "Contraseña",
+    "emailRequired": "Ingrese su correo",
+    "emailInvalid": "Correo no válido",
+    "passwordRequired": "Ingrese su contraseña",
+    "passwordMax": "Máximo 72 caracteres",
+    "loginFailed": "No se pudo iniciar sesión",
+    "submit": "Ingresar"
+  },
+  "notfound": {
+    "title": "Página no encontrada",
+    "message": "La página que busca no existe.",
+    "back": "Volver al inicio"
+  },
+  "navbar": {
+    "home": "Inicio",
+    "theory": "Marco teórico",
+    "dashboard": "Dashboard",
+    "guides": "Guías técnicas",
+    "video": "Video",
+    "credits": "Créditos",
+    "login": "Ingresar",
+    "logout": "Salir"
+  },
+  "errorBoundary": {
+    "title": "Algo salió mal",
+    "message": "Ocurrió un error inesperado.",
+    "retry": "Reintentar"
+  },
+  "sectionExtras": {
+    "satellites": "Tres plataformas educativas, de un vistazo (valores típicos)",
+    "platform": "Plataforma",
+    "what": "Qué es",
+    "where": "Dónde opera",
+    "cubesat": "CubeSat",
+    "cubesatDesc": "Nanosatélite estandarizado en unidades de 10 cm (1U)",
+    "cubesatWhere": "Órbita baja terrestre (LEO), ≈ 400 km",
+    "cansat": "CanSat",
+    "cansatDesc": "Modelo del tamaño de una lata de bebida (~330 ml)",
+    "cansatWhere": "Cohete o globo pequeño, hasta pocos km",
+    "hab": "HAB",
+    "habDesc": "Globo de gran altitud con carga útil",
+    "habWhere": "Estratosfera, ≈ 30 km",
+    "lora": "LoRa frente a WiFi y LTE (valores típicos orientativos)",
+    "characteristic": "Característica",
+    "lorawan": "LoRa / LoRaWAN",
+    "range": "Alcance",
+    "rangeLora": "Kilómetros (en línea de vista, mucho más)",
+    "rangeWifi": "Decenas de metros",
+    "rangeLte": "Kilómetros (celdas)",
+    "dataRate": "Tasa de datos",
+    "dataRateLora": "Muy baja (≈ 0,3–50 kbps)",
+    "dataRateWifi": "Muy alta (Mbps–Gbps)",
+    "dataRateLte": "Alta (Mbps)",
+    "consumption": "Consumo",
+    "consumptionLora": "Muy bajo",
+    "consumptionWifi": "Alto",
+    "consumptionLte": "Alto",
+    "spectrum": "Espectro",
+    "spectrumLora": "Bandas ISM sin licencia (433/868/915 MHz)",
+    "spectrumWifi": "ISM 2,4 / 5 GHz",
+    "spectrumLte": "Licenciado (operador)",
+    "idealUse": "Uso ideal",
+    "idealUseLora": "Telemetría y sensores remotos",
+    "idealUseWifi": "Redes locales de datos",
+    "idealUseLte": "Banda ancha móvil",
+    "openSimulator": "Abrir el simulador",
+    "globoAlt": "Globo satélite ESTRATOSAT-TELCO",
+    "globoCaption": "Globo satélite ESTRATOSAT-TELCO en vuelo",
+    "atmosphereLabel": "Infografía de las capas de la atmósfera: troposfera, estratosfera y capa de ozono, con un globo HAB a 30 km",
+    "whereOperates": "Dónde opera cada plataforma",
+    "habDescription": "Un globo HAB sube hasta la estratosfera (~30 km): allí la presión es una pequeña fracción de la del nivel del mar y la temperatura ronda los −50 °C, condiciones que se parecen al espacio a una fracción del costo.",
+    "cubesatDescription": "Un CubeSat, en cambio, orbita en LEO a unos 400 km, dentro de la termosfera, y se mueve a ≈ 7,7 km/s: de ahí viene el efecto Doppler que se estudia en la sección 2.3.",
+    "tryItYourself": "Pruébelo usted mismo",
+    "simulatorDescription": "En el simulador puede cambiar la altitud orbital y la frecuencia y ver el corrimiento Doppler frente a la tolerancia del receptor LoRa.",
+    "attacksConcentrated": "Dónde se concentran los ataques documentados",
+    "macLayer": "Capa MAC · 62 %",
+    "phyLayer": "PHY y aplicación · 38 %",
+    "source": "Fuente: revisión sistemática de literatura (PRISMA 2020) que sustenta este ODC."
+  },
+  "launchChecklist": {
+    "beforeLaunch": "Antes del lanzamiento",
+    "items": [
+      "Baterías cargadas y probadas en frío",
+      "GPS con posición fija (fix)",
+      "Prueba de enlace LoRa con la estación terrena",
+      "Carga útil sellada, aislada y atada al paracaídas",
+      "Permisos y aviso a la autoridad aeronáutica",
+      "Pronóstico de viento y trayectoria estimada"
+    ],
+    "recovery": "Recuperación y análisis",
+    "recoveryItems": [
+      "Equipo de recuperación con gateway móvil",
+      "Documente el estado de la carga útil",
+      "Descargue los datos y compárelos con el simulador"
+    ]
+  },
+  "coverage": {
+    "geometricHorizon": "Horizonte geométrico a esa altitud",
+    "effectiveRadio": "Radio efectivo",
+    "area": "área",
+    "limitedByHorizon": "La cobertura está limitada por el horizonte (línea de vista)."
+  },
+  "telemetryChart": {
+    "chartOf": "Gráfica de",
+    "lastPoints": "en los últimos puntos"
+  },
+  "componentsTable": {
+    "economicVsPremium": "perfil económico vs premium",
+    "economic": "Económico",
+    "variesByProvider": "varían según proveedor",
+    "confirmPrices": "Confírmelos con cotizaciones vigentes antes de comprar"
+  },
+  "wiring": {
+    "blockDiagram": "Diagrama de bloques y tablas de conexión de la guía",
+    "standardValues": "valores estándar de la Raspberry Pi y del RFM",
+    "module": "Módulo",
+    "physicalPin": "Pin físico",
+    "connection": "la Raspberry Pi se conecta por SPI al módulo LoRa"
+  },
+  "atmosphereDiagram": {
+    "profile": "Perfil de la atmósfera",
+    "kmWithHAB": "km con un globo HAB y su enlace de radio a la estación en tierra",
+    "designedForDark": "Diseñado para fondo oscuro",
+    "layers": "Capas de la atmósfera y globo de gran altitud",
+    "lowPressure": "baja presión y frío"
+  },
+  "referenceChips": {
+    "sectionReferences": "Referencias de esta sección"
+  },
+  "videoPlayer": {
+    "withThumbnail": "con miniatura y botón de reproducción",
+    "downloadHere": "Descárguelo aquí"
+  },
+  "videoUpload": {
+    "max": "Máximo",
+    "maxSize": "máx"
+  },
+  "codeBlock": {
+    "syntaxHighlight": "Bloque de código con resaltado de sintaxis",
+    "copyButton": "y botón para copiar"
+  },
+  "pdfButton": {
+    "downloadPdf": "Descarga el PDF de la guía si ya fue cargado en MinIO",
+    "indicatesWithoutBreaking": "lo indica sin romper la página",
+    "pdfNotAvailable": "PDF aún no disponible"
+  },
+  "reveal": {
+    "scrollReveal": "Aparición suave al hacer scroll"
+  },
+  "richContent": {
+    "sanitizeHere": "se vuelve a sanitizar aquí"
+  },
+  "theory": {
+    "subsections": "Subsecciones del marco teórico"
+  }
+}

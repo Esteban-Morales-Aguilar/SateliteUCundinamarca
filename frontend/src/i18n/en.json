@@ -1,0 +1,407 @@
+{
+  "nav": {
+    "home": "Home",
+    "theory": "Theory",
+    "dashboard": "Dashboard",
+    "guides": "Technical guides",
+    "video": "Video",
+    "credits": "Credits",
+    "login": "Sign in",
+    "logout": "Sign out",
+    "menu": "Open menu",
+    "close": "Close menu",
+    "skip": "Skip to content"
+  },
+  "theme": {
+    "toDark": "Switch to dark theme",
+    "toLight": "Switch to light theme"
+  },
+  "lang": {
+    "switch": "Cambiar idioma a español",
+    "short": "ES"
+  },
+  "common": {
+    "loading": "Loading…",
+    "retry": "Retry",
+    "error": "Content could not be loaded",
+    "download": "Download",
+    "copy": "Copy",
+    "copied": "Copied",
+    "reset": "Reset"
+  },
+  "home": {
+    "kicker": "Digital Knowledge Object · Universidad de Cundinamarca",
+    "title": "Design, simulation and security of wireless networks for educational CubeSats and CanSats",
+    "lead": "Explore at your own pace how a low-cost educational satellite communicates: from LoRa theory to a stratospheric balloon mission transmitting live.",
+    "cta": "Explore the ODC",
+    "ctaDash": "See the live mission",
+    "diagramLabel": "Atmosphere profile with a high-altitude balloon and its radio link to the ground",
+    "modulesTitle": "Four ways to explore",
+    "modulesLead": "Discover at your own pace: each module is a gateway to knowledge. Start wherever your curiosity takes you.",
+    "meditTitle": "Learning by exploring",
+    "meditLead": "This ODC follows the Transmodern Digital Educational Model (MEDIT): learners manage their own path. There are no tests or scores, only content, simulation and practice to build and replicate.",
+    "liveTitle": "ESTRATOSAT-TELCO mission",
+    "liveEmpty": "Waiting for telemetry…",
+    "liveAlt": "Altitude",
+    "liveRssi": "RSSI",
+    "liveOpen": "Open the dashboard",
+    "modules": [
+      {
+        "to": "/marco-teorico",
+        "title": "Theory",
+        "desc": "Educational satellites, LoRa and LoRaWAN, Doppler effect, redundancy and security, with the systematic review references."
+      },
+      {
+        "to": "/dashboard",
+        "title": "Dashboard",
+        "desc": "A live mission with map and telemetry, plus a simulator to see what happens to the link when power, SF or distance change."
+      },
+      {
+        "to": "/guias",
+        "title": "Technical guides",
+        "desc": "Components with COP prices, wiring, installation, Raspberry Pi code and the launch protocol."
+      },
+      {
+        "to": "/video",
+        "title": "Deployment video",
+        "desc": "Launch, ascent, operation and recovery of the ESTRATOSAT-TELCO educational satellite."
+      }
+    ],
+    "principles": [
+      {
+        "t": "Learners decide",
+        "d": "Free navigation, no mandatory sequences."
+      },
+      {
+        "t": "Many dimensions",
+        "d": "Theory, visualization, simulation and guides live in one place."
+      },
+      {
+        "t": "Learning by doing",
+        "d": "The ODC is the tangible result of the ESTRATOSAT-TELCO mission."
+      },
+      {
+        "t": "Beyond the classroom",
+        "d": "Everything is online, available at any hour."
+      },
+      {
+        "t": "Connection with the territory",
+        "d": "The guides let other educational communities replicate it."
+      },
+      {
+        "t": "Education for life",
+        "d": "Technical and civic skills: networks, security and open work."
+      }
+    ],
+    "principlesTitle": "How MEDIT shows up here",
+    "ctaSimulated": "See the simulated mission"
+  },
+  "footer": {
+    "license": "Content under Creative Commons BY-NC-SA 4.0 license",
+    "program": "Specialization in Network Infrastructure and Security",
+    "rights": "Graduation project · 2026"
+  },
+  "dashboard": {
+    "tabMission": "Simulated mission",
+    "tabSimulator": "Network simulator",
+    "tabSimulated": "Simulated mission",
+    "tabLive": "Live mission",
+    "seoDesc": "Telemetry of the ESTRATOSAT-TELCO simulated mission and network simulator.",
+    "title": "Dashboard",
+    "lead": "Observe a simulated or calculated mission and experiment with network parameters.",
+    "missionName": "ESTRATOSAT-TELCO",
+    "missionDescription": "Educational satellite telemetry mission",
+    "altitude": "Altitude",
+    "temperature": "Temperature",
+    "pressure": "Pressure",
+    "humidity": "Humidity",
+    "simulated": "If no hardware is transmitting, the system plays a simulated flight (ascending to 30 km and descending) so you can explore the panel at any time.",
+    "weatherClear": "Clear",
+    "weatherCloudy": "Cloudy",
+    "weatherRain": "Rain",
+    "weatherStorm": "Storm",
+    "live": "Live",
+    "notConnected": "Not connected",
+    "piData": "Real data transmitted by Raspberry Pi 3+ via VPN",
+    "cpuTemp": "CPU temperature",
+    "rssi": "WiFi RSSI",
+    "cpuUsage": "CPU usage",
+    "memoryUsage": "Memory usage",
+    "mission": "Mission",
+    "simulator": "Simulator",
+    "applyToSimulator": "Apply to simulator",
+    "autoOptimization": "Automatic recommendation of SF and BW",
+    "balanceOfLink": "Link budget",
+    "bandwidth": "Bandwidth",
+    "bitrate": "Bitrate",
+    "bw": "BW",
+    "calculating": "Calculating…",
+    "calculationError": "Could not calculate the recommendation.",
+    "connectionError": "Could not connect to the simulation service.",
+    "dataRate": "Data rate",
+    "distance": "Distance",
+    "doppler": "Doppler",
+    "dopplerChartLabel": "Doppler shift during a satellite pass",
+    "dopplerDescription": "A CubeSat passing over the station shifts the received frequency:",
+    "dopplerEffect": "Doppler effect in LEO orbit",
+    "dopplerShift": "Doppler shift",
+    "elevationAngle": "Elevation above horizon",
+    "elevationHint": "0° = just appearing; 90° = directly overhead",
+    "estimatedMaxRange": "Estimated maximum range",
+    "estimatedPdr": "Estimated PDR",
+    "flightPath": "Flight path",
+    "freeSpaceLoss": "Free space loss (FSPL)",
+    "frequency": "Frequency",
+    "groundStation": "Ground station",
+    "horizontalDistance": "Horizontal distance",
+    "khz": "kHz",
+    "linkMargin": "Link margin",
+    "linkParameters": "Link parameters",
+    "linkQuality": "Link quality",
+    "lossChart": "Loss chart",
+    "lossChartLabel": "Power chart over the last points",
+    "margin": "Margin",
+    "networkSimulator": "Network simulator",
+    "operatingPoint": "Operating point",
+    "orbitalAltitude": "Orbital altitude",
+    "orbitalVelocity": "Orbital velocity",
+    "otherLosses": "Other losses (cables, weather…)",
+    "pdr": "PDR",
+    "period": "Period",
+    "power": "Power",
+    "receivedPower": "Received power",
+    "receiverTolerance": "Receiver tolerance",
+    "recommendParameters": "Recommend parameters",
+    "reconnecting": "Reconnecting…",
+    "reset": "Reset values",
+    "rssiStatus": "RSSI status",
+    "seekMaxDataRate": "Seeks the highest data rate that keeps at least 10 dB of margin with current power, gains and distance.",
+    "sensitivity": "Sensitivity",
+    "sf": "SF",
+    "signalGood": "Signal good",
+    "simulatorDescription": "Move the controls and observe how the link between the balloon and the ground station changes. The simulation service calculates with the Friis model and LoRa sensitivity.",
+    "snr": "SNR",
+    "spreadingFactor": "Spreading Factor (SF)",
+    "stepEvolution": "Evolution of the pass (from horizon to horizon)",
+    "toleranceMinus": "− tolerance",
+    "tolerancePlus": "+ tolerance",
+    "transmissionPower": "Transmission power",
+    "weather": "Weather",
+    "coverage": "Coverage",
+    "radioRange": "Radio range",
+    "waitingForPi": "Waiting for Raspberry Pi data...",
+    "piNotTransmitting": "The Pi is not transmitting yet. Connect the Pi via VPN and wait for it to send telemetry.",
+    "noRealLaunch": "No real launch has been performed yet. Connect the LoRa modules and sensors to see flight data.",
+    "autoOptimizationDesc": "Asks the service for the SF/BW combination with the highest data rate that maintains a target margin.",
+    "fragileMargin": "A margin of less than ~6 dB is fragile: weather or an antenna orientation change could cut the link.",
+    "friisEquation": "Link budget step by step (Friis equation)",
+    "highSf": "High SF: more range, less speed.",
+    "resultingDistance": "Resulting straight-line distance",
+    "stratosphereStarts": "The stratosphere begins at ~12 km.",
+    "tryHigherSf": "Try increasing the SF (higher SF = more sensitivity but lower data rate)."
+  },
+  "video": {
+    "title": "Deployment video",
+    "lead": "See how the ESTRATOSAT-TELCO educational satellite mission was lived from start to finish.",
+    "sections": [
+      {
+        "t": "Launch",
+        "d": "Balloon inflation, final payload verification and release with telemetry already active."
+      },
+      {
+        "t": "Ascent",
+        "d": "The balloon crosses the troposphere and enters the stratosphere while the LoRa link is maintained."
+      },
+      {
+        "t": "Operation",
+        "d": "Near 30 km, altitude, pressure, temperature and link quality are recorded."
+      },
+      {
+        "t": "Recovery",
+        "d": "Parachute descent and payload location using the last received position."
+      }
+    ],
+    "notLoaded": "The deployment video has not been uploaded yet.",
+    "uploadHint": "Upload it in the panel below."
+  },
+  "credits": {
+    "title": "Credits",
+    "authors": "Authors",
+    "teacher": "Teacher",
+    "program": "Program",
+    "university": "University",
+    "ctiGroup": "CTI Group",
+    "year": "Year",
+    "license": "License",
+    "licenseText": "This digital knowledge object is distributed under Creative Commons BY-NC-SA 4.0: you can copy, adapt and share it citing the authors, without commercial purposes and under the same license.",
+    "satellites": "Educational satellites"
+  },
+  "guides": {
+    "title": "Technical guides",
+    "lead": "Everything needed to replicate the mission node, from the shopping list to balloon recovery.",
+    "sections": {
+      "components": "Component selection",
+      "wiring": "Electrical connections",
+      "software": "Software installation",
+      "programming": "Raspberry Pi and Arduino Uno programming",
+      "launch": "Launch and recovery protocol"
+    }
+  },
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "emailRequired": "Enter your email",
+    "emailInvalid": "Invalid email",
+    "passwordRequired": "Enter your password",
+    "passwordMax": "Maximum 72 characters",
+    "loginFailed": "Could not sign in",
+    "submit": "Sign in"
+  },
+  "notfound": {
+    "title": "Page not found",
+    "message": "The page you are looking for does not exist.",
+    "back": "Go back home"
+  },
+  "navbar": {
+    "home": "Home",
+    "theory": "Theory",
+    "dashboard": "Dashboard",
+    "guides": "Technical guides",
+    "video": "Video",
+    "credits": "Credits",
+    "login": "Sign in",
+    "logout": "Sign out"
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "message": "An unexpected error occurred.",
+    "retry": "Try again"
+  },
+  "sectionExtras": {
+    "satellites": "Three educational platforms at a glance (typical values)",
+    "platform": "Platform",
+    "what": "What it is",
+    "where": "Where it operates",
+    "cubesat": "CubeSat",
+    "cubesatDesc": "Nanosatellite standardized in 10 cm units (1U)",
+    "cubesatWhere": "Low Earth orbit (LEO), ≈ 400 km",
+    "cansat": "CanSat",
+    "cansatDesc": "Model the size of a beverage can (~330 ml)",
+    "cansatWhere": "Rocket or small balloon, up to a few km",
+    "hab": "HAB",
+    "habDesc": "High-altitude balloon with payload",
+    "habWhere": "Stratosphere, ≈ 30 km",
+    "lora": "LoRa vs WiFi and LTE (typical orientative values)",
+    "characteristic": "Characteristic",
+    "lorawan": "LoRa / LoRaWAN",
+    "range": "Range",
+    "rangeLora": "Kilometers (line of sight, much more)",
+    "rangeWifi": "Tens of meters",
+    "rangeLte": "Kilometers (cells)",
+    "dataRate": "Data rate",
+    "dataRateLora": "Very low (≈ 0.3–50 kbps)",
+    "dataRateWifi": "Very high (Mbps–Gbps)",
+    "dataRateLte": "High (Mbps)",
+    "consumption": "Consumption",
+    "consumptionLora": "Very low",
+    "consumptionWifi": "High",
+    "consumptionLte": "High",
+    "spectrum": "Spectrum",
+    "spectrumLora": "Unlicensed ISM bands (433/868/915 MHz)",
+    "spectrumWifi": "ISM 2.4 / 5 GHz",
+    "spectrumLte": "Licensed (operator)",
+    "idealUse": "Ideal use",
+    "idealUseLora": "Telemetry and remote sensors",
+    "idealUseWifi": "Local data networks",
+    "idealUseLte": "Mobile broadband",
+    "openSimulator": "Open the simulator",
+    "globoAlt": "Globo satélite ESTRATOSAT-TELCO",
+    "globoCaption": "Globo satélite ESTRATOSAT-TELCO in flight",
+    "atmosphereLabel": "Atmosphere layers infographic: troposphere, stratosphere and ozone layer, with a HAB balloon at 30 km",
+    "whereOperates": "Where each platform operates",
+    "habDescription": "A HAB balloon rises to the stratosphere (~30 km): there the pressure is a small fraction of sea level and the temperature is around −50 °C, conditions that resemble space at a fraction of the cost.",
+    "cubesatDescription": "A CubeSat, on the other hand, orbits in LEO at about 400 km, inside the thermosphere, and moves at ≈ 7.7 km/s: that is where the Doppler effect studied in section 2.3 comes from.",
+    "tryItYourself": "Try it yourself",
+    "simulatorDescription": "In the simulator you can change the orbital altitude and frequency and see the Doppler shift against the LoRa receiver tolerance.",
+    "attacksConcentrated": "Where documented attacks concentrate",
+    "macLayer": "MAC layer · 62 %",
+    "phyLayer": "PHY and application · 38 %",
+    "source": "Source: systematic literature review (PRISMA 2020) that supports this ODC."
+  },
+  "launchChecklist": {
+    "beforeLaunch": "Before launch",
+    "items": [
+      "Batteries charged and tested in cold",
+      "GPS with fixed position (fix)",
+      "LoRa link test with ground station",
+      "Payload sealed, insulated and tied to parachute",
+      "Permits and notice to aeronautical authority",
+      "Wind forecast and estimated trajectory"
+    ],
+    "recovery": "Recovery and analysis",
+    "recoveryItems": [
+      "Recovery team with mobile gateway",
+      "Document the state of the payload",
+      "Download data and compare with simulator"
+    ]
+  },
+  "coverage": {
+    "geometricHorizon": "Geometric horizon at that altitude",
+    "effectiveRadio": "Effective radio",
+    "area": "area",
+    "limitedByHorizon": "Coverage is limited by the horizon (line of sight)."
+  },
+  "telemetryChart": {
+    "chartOf": "Chart of",
+    "lastPoints": "in the last points"
+  },
+  "componentsTable": {
+    "economicVsPremium": "Economic vs premium profile",
+    "economic": "Economic",
+    "variesByProvider": "Varies by provider",
+    "confirmPrices": "Confirm with current quotes before purchasing"
+  },
+  "wiring": {
+    "blockDiagram": "Block diagram and connection tables of guide",
+    "standardValues": "standard values of the Raspberry Pi and the RFM",
+    "module": "Module",
+    "physicalPin": "Physical pin",
+    "connection": "the Raspberry Pi connects via SPI to the LoRa module"
+  },
+  "atmosphereDiagram": {
+    "profile": "Atmosphere profile",
+    "kmWithHAB": "km with a HAB balloon and its radio link to the ground station",
+    "designedForDark": "Designed for dark background",
+    "layers": "Atmosphere layers and high-altitude balloon",
+    "lowPressure": "low pressure and cold"
+  },
+  "referenceChips": {
+    "sectionReferences": "References for this section"
+  },
+  "videoPlayer": {
+    "withThumbnail": "with thumbnail and play button",
+    "downloadHere": "Download here"
+  },
+  "videoUpload": {
+    "max": "Max",
+    "maxSize": "max"
+  },
+  "codeBlock": {
+    "syntaxHighlight": "Code block with syntax highlighting",
+    "copyButton": "and copy button"
+  },
+  "pdfButton": {
+    "downloadPdf": "Download the guide PDF if already loaded in MinIO",
+    "indicatesWithoutBreaking": "indicates without breaking the page",
+    "pdfNotAvailable": "PDF not yet available"
+  },
+  "reveal": {
+    "scrollReveal": "Smooth appearance on scroll"
+  },
+  "richContent": {
+    "sanitizeHere": "sanitized here"
+  },
+  "theory": {
+    "subsections": "Theory subsections"
+  }
+}

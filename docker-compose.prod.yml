@@ -1,0 +1,46 @@
+# docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+services:
+  traefik:
+    ports: !override ["80:80", "443:443"]   # el dashboard (:8080) NO se publica en producción
+    labels:
+      # HTTPS obligatorio: todo lo que llegue por :80 se redirige a https (el reto ACME HTTP-01 se atiende antes)
+      - "traefik.enable=true"
+      - "traefik.http.routers.http-catchall.rule=HostRegexp(`.+`)"
+      - "traefik.http.routers.http-catchall.entrypoints=web"
+      - "traefik.http.routers.http-catchall.priority=1"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-https"
+      - "traefik.http.routers.http-catchall.service=noop@internal"
+      - "traefik.http.middlewares.redirect-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-https.redirectscheme.permanent=true"
+  frontend:
+    labels:
+      - "traefik.http.routers.frontend.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=le"
+  auth-service:
+    labels:
+      - "traefik.http.routers.auth.rule=Host(`${DOMAIN}`) && (PathPrefix(`/api/v1/auth`) || PathPrefix(`/api/v1/users`))"
+      - "traefik.http.routers.auth.entrypoints=websecure"
+      - "traefik.http.routers.auth.tls.certresolver=le"
+  content-service:
+    labels:
+      - "traefik.http.routers.content.rule=Host(`${DOMAIN}`) && PathPrefix(`/api/v1/content`)"
+      - "traefik.http.routers.content.entrypoints=websecure"
+      - "traefik.http.routers.content.tls.certresolver=le"
+  telemetry-service:
+    labels:
+      - "traefik.http.routers.telemetry.rule=Host(`${DOMAIN}`) && (PathPrefix(`/api/v1/telemetry`) || PathPrefix(`/api/v1/ws`))"
+      - "traefik.http.routers.telemetry.entrypoints=websecure"
+      - "traefik.http.routers.telemetry.tls.certresolver=le"
+  simulation-service:
+    labels:
+      - "traefik.http.routers.simulation.rule=Host(`${DOMAIN}`) && PathPrefix(`/api/v1/simulation`)"
+      - "traefik.http.routers.simulation.entrypoints=websecure"
+      - "traefik.http.routers.simulation.tls.certresolver=le"
+  media-service:
+    labels:
+      - "traefik.http.routers.media.rule=Host(`${DOMAIN}`) && PathPrefix(`/api/v1/media`)"
+      - "traefik.http.routers.media.entrypoints=websecure"
+      - "traefik.http.routers.media.tls.certresolver=le"
+  grafana:
+    ports: !reset []
